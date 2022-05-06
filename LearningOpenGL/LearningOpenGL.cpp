@@ -9,7 +9,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void draw(GLFWwindow* window);
 
-GLuint shaderProgram, VAO1, VAO2;
+GLuint shaderProgram1, shaderProgram2, VAO1, VAO2;
 
 const int SRC_WIDTH = 800;
 const int SRC_HEIGHT = 600;
@@ -48,12 +48,20 @@ void main()
 	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 })";
 	
-	const char* fragShaderSource = R"(#version 330 core
+	const char* frag1ShaderSource = R"(#version 330 core
 layout (location = 0) out vec4 FragColor;
 
 void main()
 {
 	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+})";
+
+	const char* frag2ShaderSource = R"(#version 330 core
+layout (location = 0) out vec4 FragColor;
+
+void main()
+{
+	FragColor = vec4(1.0f, 0.9f, 0.04f, 1.0f);
 })";
 
 	GLuint vertexShader;
@@ -71,33 +79,59 @@ void main()
 
 	}
 		
-	GLuint fragmentShader;
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragShaderSource, NULL);
-	glCompileShader(fragmentShader);
+	GLuint fragmentShader1;
+	fragmentShader1 = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader1, 1, &frag1ShaderSource, NULL);
+	glCompileShader(fragmentShader1);
 
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(fragmentShader1, GL_COMPILE_STATUS, &success);
 
 	if (!success)
 	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		glGetShaderInfoLog(fragmentShader1, 512, NULL, infoLog);
 	}
 
-	shaderProgram = glCreateProgram();
+	GLuint fragmentShader2;
+	fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader2, 1, &frag2ShaderSource, NULL);
+	glCompileShader(fragmentShader2);
 
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
 
 	if (!success)
 	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
+	}
+
+	shaderProgram1 = glCreateProgram();
+
+	glAttachShader(shaderProgram1, vertexShader);
+	glAttachShader(shaderProgram1, fragmentShader1);
+	glLinkProgram(shaderProgram1);
+
+	glGetProgramiv(shaderProgram1, GL_LINK_STATUS, &success);
+
+	if (!success)
+	{
+		glGetProgramInfoLog(shaderProgram1, 512, NULL, infoLog);
+	}
+
+	shaderProgram2 = glCreateProgram();
+
+	glAttachShader(shaderProgram2, vertexShader);
+	glAttachShader(shaderProgram2, fragmentShader2);
+	glLinkProgram(shaderProgram2);
+
+	glGetProgramiv(shaderProgram2, GL_LINK_STATUS, &success);
+
+	if (!success)
+	{
+		glGetProgramInfoLog(shaderProgram2, 512, NULL, infoLog);
 	}
 
 	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	glDeleteShader(fragmentShader1);
+	glDeleteShader(fragmentShader2);
 
 
 	const float vertices[] =
@@ -150,7 +184,7 @@ void main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 	while (!glfwWindowShouldClose(window))
@@ -169,7 +203,8 @@ void main()
 	glDeleteVertexArrays(1, &VAO2);
 	glDeleteBuffers(1, &VBO2);
 	glDeleteBuffers(1, &EBO2);
-	glDeleteProgram(shaderProgram);
+	glDeleteProgram(shaderProgram1);
+	glDeleteProgram(shaderProgram2);
 
 	glfwTerminate();
 	return 0;
@@ -181,9 +216,10 @@ void draw(GLFWwindow* window)
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
-	glUseProgram(shaderProgram);
+	glUseProgram(shaderProgram1);
 	glBindVertexArray(VAO1);
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+	glUseProgram(shaderProgram2);
 	glBindVertexArray(VAO2);
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
