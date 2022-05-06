@@ -4,12 +4,11 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
-void draw(GLFWwindow* window);
-
-GLuint shaderProgram, VAO;
+void draw(GLFWwindow* window, Shader shader, GLuint VAO);
 
 const int SRC_WIDTH = 800;
 const int SRC_HEIGHT = 600;
@@ -38,72 +37,10 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	const char* vertShaderSource = R"(#version 330 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 aColor;
-
-out vec3 vertexColor;
-
-void main()
-{
-	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	vertexColor = aColor;	
-})";
-	
-	const char* fragShaderSource = R"(#version 330 core
-out vec4 FragColor;
-in vec3 vertexColor;
-
-void main()
-{
-	FragColor = vec4(vertexColor, 1.0f);
-})";
-
-	GLuint vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-
-	}
-		
-	GLuint fragmentShader;
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-	}
-
-	shaderProgram = glCreateProgram();
-
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
+	Shader shader("shader_vert.glsl", "shader_frag.glsl");
 
 	const float vertices[] =
 	{
@@ -119,7 +56,7 @@ void main()
 		1, 2, 3  // second triangle
 	};
 
-	GLuint VBO, EBO;
+	GLuint VAO, VBO, EBO;
 
 	glGenVertexArrays(1, &VAO);
 
@@ -148,26 +85,25 @@ void main()
 		processInput(window);
 
 		// Render
-		draw(window);
+		draw(window, shader, VAO);
 		glfwPollEvents();
 	}
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
-	glDeleteProgram(shaderProgram);
 
 	glfwTerminate();
 	return 0;
 }
 
-void draw(GLFWwindow* window)
+void draw(GLFWwindow* window, Shader shader, GLuint VAO)
 {
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
-	glUseProgram(shaderProgram);
+	shader.use();
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -178,7 +114,6 @@ void draw(GLFWwindow* window)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
-	draw(window);
 }
 
 void processInput(GLFWwindow* window)

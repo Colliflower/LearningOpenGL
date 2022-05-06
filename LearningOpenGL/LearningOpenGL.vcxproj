@@ -222,6 +222,13 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearningOpenGL.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader_frag.glsl" />
+    <None Include="shader_vert.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
