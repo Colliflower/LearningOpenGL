@@ -44,16 +44,14 @@ int main()
 
 	const float vertices[] =
 	{
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // UR
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // BR
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // BL
-		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f  // UL
+		-0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // UL
+		 0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // UR
+		 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // B
 	};
 	
 	const GLuint indices[] =
 	{
-		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
+		0, 1, 2, // first triangle
 	};
 
 	GLuint VAO, VBO, EBO;
