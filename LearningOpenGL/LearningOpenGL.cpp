@@ -43,17 +43,20 @@ int main()
 	const char* vertShaderSource = R"(#version 330 core
 layout (location = 0) in vec3 aPos;
 
-void main()
-{
-	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-})";
-	
-	const char* fragShaderSource = R"(#version 330 core
-layout (location = 0) out vec4 FragColor;
 
 void main()
 {
-	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+})";
+	
+	const char* fragShaderSource = R"(#version 330 core
+out vec4 FragColor;
+
+uniform vec4 ourColor;
+
+void main()
+{
+	FragColor = ourColor;
 })";
 
 	GLuint vertexShader;
@@ -132,7 +135,7 @@ void main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 	while (!glfwWindowShouldClose(window))
@@ -159,8 +162,12 @@ void draw(GLFWwindow* window)
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-
+	float timeValue = glfwGetTime();
+	float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+	int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 	glUseProgram(shaderProgram);
+	glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
