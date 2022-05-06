@@ -102,16 +102,17 @@ void main()
 
 	const float vertices[] =
 	{
-		 0.5f,  0.5f, 0.0f, // UR
-		 0.5f, -0.5f, 0.0f, // BR
-		-0.5f, -0.5f, 0.0f, // BL
-		-0.5f,  0.5f, 0.0f  // UL
+		-0.8, -0.4, 0.0f,
+		-0.4, 0.4f, 0.0f,
+		0.0f, -0.4, 0.0f,
+		0.8, -0.4, 0.0f,
+		0.4, 0.4f, 0.0f,
 	};
 	
 	const GLuint indices[] =
 	{
-		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
+		0, 1, 2, // first triangle
+		3, 4, 2  // second triangle
 	};
 
 	GLuint VBO, EBO;
@@ -132,7 +133,7 @@ void main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 	while (!glfwWindowShouldClose(window))
