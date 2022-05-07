@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ext">
+      <UniqueIdentifier>{b83008d3-33ac-4394-8ca2-4ccbd9c4c9bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LearningOpenGL.cpp">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\CRC.h">
+      <Filter>Header Files\ext</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

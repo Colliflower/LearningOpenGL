@@ -115,16 +115,19 @@
     <LinkIncremental>true</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)/../glfw-3.3.7/include;$(SolutionDir)/../glad/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)/../glfw-3.3.7/lib/$(PlatformShortName)/$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>$(SolutionDir)/ext/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)/../glfw-3.3.7/include;$(SolutionDir)/../glad/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)/../glfw-3.3.7/lib/$(PlatformShortName)/$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>$(SolutionDir)/ext/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)/../glfw-3.3.7/include;$(SolutionDir)/../glad/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)/../glfw-3.3.7/lib/$(PlatformShortName)/$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>$(SolutionDir)/ext/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -226,6 +229,7 @@
     <ClCompile Include="LearningOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ext\CRC.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
