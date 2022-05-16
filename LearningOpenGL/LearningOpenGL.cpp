@@ -18,7 +18,7 @@ const int SRC_HEIGHT = 600;
 
 int main()
 {
-	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\2021-12-24 12_36_15-HaloInfiniteBug.png)");
+	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\test_image.png)");
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

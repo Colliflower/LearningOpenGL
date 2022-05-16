@@ -229,9 +229,11 @@
     <ClCompile Include="LearningOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="ext\CRC.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Zlib.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader_frag.glsl" />
