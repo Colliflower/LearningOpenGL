@@ -95,7 +95,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>C:\Program Files (x86)\zlib\lib\zlib-ngd.lib;$(MSBuildThisFileDirectory)..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5\lib\native\v140\windesktop\msvcstl\static\rt-dyn\x64\Debug\gtest_maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Zlib.obj;$(MSBuildThisFileDirectory)..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5\lib\native\v140\windesktop\msvcstl\static\rt-dyn\x64\Debug\gtest_maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)../LearningOpenGL/$(PlatformShortName)/$(Configuration);%(AdditionalLibraryDirectories);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib;$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\manual-link</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,7 +131,8 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>C:\Program Files (x86)\zlib\lib\zlib-ng.lib;$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\static\rt-dyn\x64\Release\gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Zlib.obj;$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\static\rt-dyn\x64\Release\gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)../LearningOpenGL/$(PlatformShortName)/$(Configuration);%(AdditionalLibraryDirectories);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib;$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\manual-link</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

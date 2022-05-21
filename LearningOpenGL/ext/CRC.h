@@ -802,7 +802,7 @@ inline CRCType CRC::CalculateRemainder(const void * data, crcpp_size size, const
             }
         }
     }
-    else if (CRCWidth >= CHAR_BIT)
+    else if constexpr (CRCWidth >= CHAR_BIT)
     {
         static crcpp_constexpr CRCType CRC_WIDTH_MINUS_ONE(CRCWidth - CRCType(1));
 #ifndef CRCPP_BRANCHLESS
@@ -901,7 +901,7 @@ inline CRCType CRC::CalculateRemainder(const void * data, crcpp_size size, const
 #endif
         }
     }
-    else if (CRCWidth >= CHAR_BIT)
+    else if constexpr (CRCWidth >= CHAR_BIT)
     {
         // The conditional expression is used to avoid a -Wshift-count-overflow warning.
         static crcpp_constexpr CRCType SHIFT((CRCWidth >= CHAR_BIT) ? static_cast<CRCType>(CRCWidth - CHAR_BIT) : 0);
