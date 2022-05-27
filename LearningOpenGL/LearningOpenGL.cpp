@@ -11,15 +11,13 @@ using namespace trv;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
-void draw(GLFWwindow* window, Shader shader, GLuint VAO);
+void draw(GLFWwindow* window, Shader shader, GLuint VAO, GLuint textureID);
 
 const int SRC_WIDTH = 800;
 const int SRC_HEIGHT = 600;
 
 int main()
 {
-	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\test_image.png)");
-
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -49,10 +47,10 @@ int main()
 
 	const float vertices[] =
 	{
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // UR
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // BR
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // BL
-		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f  // UL
+		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // UR
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // BR
+		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // BL
+		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // UL
 	};
 	
 	const GLuint indices[] =
@@ -76,12 +74,25 @@ int main()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\pablo_birth.png)");
+
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data.data());
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 
 
 	while (!glfwWindowShouldClose(window))
@@ -90,7 +101,7 @@ int main()
 		processInput(window);
 
 		// Render
-		draw(window, shader, VAO);
+		draw(window, shader, VAO, textureID);
 		glfwPollEvents();
 	}
 
@@ -102,13 +113,14 @@ int main()
 	return 0;
 }
 
-void draw(GLFWwindow* window, Shader shader, GLuint VAO)
+void draw(GLFWwindow* window, Shader shader, GLuint VAO, GLuint textureID)
 {
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
 	shader.use();
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
