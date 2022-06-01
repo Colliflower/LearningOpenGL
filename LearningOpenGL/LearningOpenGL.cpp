@@ -43,14 +43,17 @@ int main()
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	Shader shader("shader_vert.glsl", "shader_frag.glsl");
 
 	const float vertices[] =
 	{
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // UR
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // BR
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // BL
-		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // UL
+		 1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // UR
+		 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // BR
+		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // BL
+		-1.0f,  1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // UL
 	};
 	
 	const GLuint indices[] =
@@ -83,12 +86,34 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\pablo_birth.png)");
+	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\4_palette_test.png)");
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data.data());
+	
+	GLint format;
+	switch (image.channels)
+	{
+	case 4:
+		format = GL_RGBA;
+		break;
+	case 3:
+		format = GL_RGB;
+		break;
+	case 2:
+		format = GL_RG;
+		break;
+	case 1:
+		format = GL_RED;
+		break;
+	default:
+		format = GL_RED;
+		std::cout << "Unexpected channel count, should be <= 4, but was " << image.channels;
+		break;
+	}
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.width, image.height, 0, format, GL_UNSIGNED_BYTE, image.data.data());
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

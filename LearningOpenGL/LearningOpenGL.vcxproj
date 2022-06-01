@@ -225,6 +225,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Filter.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="LearningOpenGL.cpp" />
     <ClCompile Include="Zlib.cpp" />
@@ -232,6 +233,7 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="ext\CRC.h" />
+    <ClInclude Include="Filter.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Zlib.h" />
