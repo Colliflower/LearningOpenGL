@@ -86,7 +86,7 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\4_palette_test.png)");
+	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\halo_16_bit_interlaced.png)");
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
