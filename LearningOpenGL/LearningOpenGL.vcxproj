@@ -231,13 +231,13 @@
     <ClCompile Include="Zlib.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="CRC.h" />
-    <ClInclude Include="Filter.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="WorkerPool.h" />
-    <ClInclude Include="Zlib.h" />
+    <ClInclude Include="Common.hpp" />
+    <ClInclude Include="CRC.hpp" />
+    <ClInclude Include="Filter.hpp" />
+    <ClInclude Include="Image.hpp" />
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="WorkerPool.hpp" />
+    <ClInclude Include="Zlib.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader_frag.glsl" />

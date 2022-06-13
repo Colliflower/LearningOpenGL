@@ -29,25 +29,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
+    <ClInclude Include="Image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Zlib.h">
+    <ClInclude Include="Zlib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
+    <ClInclude Include="Common.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Filter.h">
+    <ClInclude Include="Filter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CRC.h">
+    <ClInclude Include="CRC.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WorkerPool.h">
+    <ClInclude Include="WorkerPool.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
