@@ -236,6 +236,7 @@
     <ClInclude Include="Filter.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="WorkerPool.h" />
     <ClInclude Include="Zlib.h" />
   </ItemGroup>
   <ItemGroup>

@@ -7,8 +7,6 @@
 #include "Shader.h"
 #include "Image.h"
 
-using namespace trv;
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void draw(GLFWwindow* window, Shader shader, GLuint VAO, GLuint textureID);
@@ -86,7 +84,12 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Image<char> image = load_image<char>(R"(C:\Users\monke\Pictures\pablo_birth.png)");
+	auto start = std::chrono::system_clock::now();
+	trv::Image<char> image = trv::load_image<char>(R"(C:\Users\monke\Pictures\big_test.png)");
+	auto end = std::chrono::system_clock::now();
+
+	std::chrono::duration<double, std::milli> elapsed = end - start;
+	std::cout << "Read in: " << elapsed.count() << "ms";
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
