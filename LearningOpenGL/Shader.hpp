@@ -88,8 +88,7 @@ class Shader
 			}
 
 			std::stringstream msg;
-			msg << "ERROR::SHADER::" << type << "COMPILATION_FAILED\n"
-			    << infoLog << "\n";
+			msg << "ERROR::SHADER::" << type << "COMPILATION_FAILED\n" << infoLog << "\n";
 
 			throw std::runtime_error(msg.str());
 		}

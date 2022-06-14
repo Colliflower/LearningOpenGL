@@ -23,8 +23,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window =
-	    glfwCreateWindow(SRC_WIDTH, SRC_HEIGHT, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SRC_WIDTH, SRC_HEIGHT, "LearnOpenGL", NULL, NULL);
 
 	if (window == nullptr)
 	{
@@ -73,24 +72,20 @@ int main()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
-	             GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
-	                      (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
-	                      (void*)(6 * sizeof(float)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	auto start = std::chrono::system_clock::now();
-	trv::Image<char> image =
-	    trv::load_image<char>(R"(C:\Users\monke\Pictures\bit_depth_1.png)");
-	auto end = std::chrono::system_clock::now();
+	auto start             = std::chrono::system_clock::now();
+	trv::Image<char> image = trv::load_image<char>(R"(C:\Users\monke\Pictures\bit_depth_1.png)");
+	auto end               = std::chrono::system_clock::now();
 
 	std::chrono::duration<double, std::milli> elapsed = end - start;
 	std::cout << "Read in: " << elapsed.count() << "ms";
@@ -116,13 +111,12 @@ int main()
 			break;
 		default:
 			format = GL_RED;
-			std::cout << "Unexpected channel count, should be <= 4, but was "
-			          << image.channels;
+			std::cout << "Unexpected channel count, should be <= 4, but was " << image.channels;
 			break;
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.width, image.height, 0, format,
-	             GL_UNSIGNED_BYTE, image.data.data());
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.width, image.height, 0, format, GL_UNSIGNED_BYTE,
+	             image.data.data());
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

@@ -29,4 +29,5 @@ SpaceBeforeCpp11BracedList: true
 Standard: Latest
 TabWidth: 4
 UseTab: ForIndentation
+AlignConsecutiveAssignments: true
 IncludeBlocks: Regroup
