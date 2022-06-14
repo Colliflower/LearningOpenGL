@@ -2,27 +2,28 @@
 
 #include <glad/glad.h>
 
-#include <string>
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 
-class Shader {
-public:
+class Shader
+{
+   public:
 	GLuint ID;
-	
+
 	Shader() = delete;
 
 	Shader(const char* vertexPath, const char* fragmentPath)
 	{
-		GLuint vertex = loadShader(vertexPath, GL_VERTEX_SHADER);
+		GLuint vertex   = loadShader(vertexPath, GL_VERTEX_SHADER);
 		GLuint fragment = loadShader(fragmentPath, GL_FRAGMENT_SHADER);
 
 		ID = glCreateProgram();
 		glAttachShader(ID, vertex);
 		glAttachShader(ID, fragment);
 		glLinkProgram(ID);
-		
+
 		int success;
 		glGetProgramiv(ID, GL_LINK_STATUS, &success);
 		if (!success)
@@ -35,15 +36,12 @@ public:
 
 			throw std::runtime_error(msg.str());
 		}
-		
+
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 	};
 
-	~Shader()
-	{
-		glDeleteProgram(ID);
-	}
+	~Shader() { glDeleteProgram(ID); }
 
 	static GLuint loadShader(const char* path, GLenum shaderType)
 	{
@@ -55,7 +53,7 @@ public:
 		shaderStream << shaderFile.rdbuf();
 		shaderFile.close();
 
-		std::string shaderCode = shaderStream.str();
+		std::string shaderCode  = shaderStream.str();
 		const char* cShaderCode = shaderCode.c_str();
 
 		GLuint id = glCreateShader(shaderType);
@@ -72,25 +70,26 @@ public:
 			std::string type;
 			switch (shaderType)
 			{
-			case GL_VERTEX_SHADER:
-				type = "FRAGMENT";
-				break;
-			case GL_FRAGMENT_SHADER:
-				type = "VERTEX";
-				break;
-			case GL_GEOMETRY_SHADER:
-				type = "GEOMETRY";
-				break;
-			case GL_COMPUTE_SHADER:
-				type = "COMPUTE";
-				break;
-			default:
-				type = "UNKNOWN";
-				break;
+				case GL_VERTEX_SHADER:
+					type = "FRAGMENT";
+					break;
+				case GL_FRAGMENT_SHADER:
+					type = "VERTEX";
+					break;
+				case GL_GEOMETRY_SHADER:
+					type = "GEOMETRY";
+					break;
+				case GL_COMPUTE_SHADER:
+					type = "COMPUTE";
+					break;
+				default:
+					type = "UNKNOWN";
+					break;
 			}
 
 			std::stringstream msg;
-			msg << "ERROR::SHADER::" << type << "COMPILATION_FAILED\n" << infoLog << "\n";
+			msg << "ERROR::SHADER::" << type << "COMPILATION_FAILED\n"
+			    << infoLog << "\n";
 
 			throw std::runtime_error(msg.str());
 		}
@@ -98,10 +97,7 @@ public:
 		return id;
 	};
 
-	void use()
-	{
-		glUseProgram(ID);
-	};
+	void use() { glUseProgram(ID); };
 
 	void setBool(const std::string& name, bool value) const
 	{
