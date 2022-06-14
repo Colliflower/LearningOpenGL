@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../LearningOpenGL/Zlib.h"
+#include "../LearningOpenGL/Zlib.hpp"
 #include <random>
 
 using namespace trv;
@@ -20,7 +20,7 @@ TEST(TestZlib, PeekLitteByteLittleBit)
 	
 	BitConsumer<std::endian::little> consumer(input1);
 
-	uint16_t result = consumer.peek_bits<uint16_t, std::endian::little>(1);
+	std::uint16_t result = consumer.peek_bits<uint16_t, std::endian::little>(1);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.peek_bits<uint16_t, std::endian::little>(3);
@@ -42,7 +42,7 @@ TEST(TestZlib, PeekLitteByteBigBit)
 
 	BitConsumer<std::endian::little> consumer(input1);
 
-	uint16_t result = consumer.peek_bits<uint16_t, std::endian::big>(1);
+	std::uint16_t result = consumer.peek_bits<uint16_t, std::endian::big>(1);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.peek_bits<uint16_t, std::endian::big>(3);
@@ -64,7 +64,7 @@ TEST(TestZlib, PeekBigByteLittleBit)
 
 	BitConsumer<std::endian::big> consumer(input1);
 
-	uint16_t result = consumer.peek_bits<uint16_t, std::endian::little>(1);
+	std::uint16_t result = consumer.peek_bits<uint16_t, std::endian::little>(1);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.peek_bits<uint16_t, std::endian::little>(3);
@@ -86,7 +86,7 @@ TEST(TestZlib, PeekBigByteBigBit)
 
 	BitConsumer<std::endian::big> consumer(input1);
 
-	uint16_t result = consumer.peek_bits<uint16_t, std::endian::big>(1);
+	std::uint16_t result = consumer.peek_bits<uint16_t, std::endian::big>(1);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.peek_bits<uint16_t, std::endian::big>(3);
@@ -108,7 +108,7 @@ TEST(TestZlib, ConsumeLitteByteLittleBit)
 
 	BitConsumer<std::endian::little> consumer(input1);
 
-	uint16_t result = consumer.consume_bits<uint16_t, std::endian::little>(2);
+	std::uint16_t result = consumer.consume_bits<uint16_t, std::endian::little>(2);
 	EXPECT_EQ(result, 0b10);
 
 	result = consumer.consume_bits<uint16_t, std::endian::little>(4);
@@ -130,7 +130,7 @@ TEST(TestZlib, ConsumeLitteByteBigBit)
 
 	BitConsumer<std::endian::little> consumer(input1);
 
-	uint16_t result = consumer.consume_bits<uint16_t, std::endian::big>(2);
+	std::uint16_t result = consumer.consume_bits<uint16_t, std::endian::big>(2);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.consume_bits<uint16_t, std::endian::big>(4);
@@ -152,7 +152,7 @@ TEST(TestZlib, ConsumeBigByteLittleBit)
 
 	BitConsumer<std::endian::big> consumer(input1);
 
-	uint16_t result = consumer.consume_bits<uint16_t, std::endian::little>(2);
+	std::uint16_t result = consumer.consume_bits<uint16_t, std::endian::little>(2);
 	EXPECT_EQ(result, 0b10);
 
 	result = consumer.consume_bits<uint16_t, std::endian::little>(4);
@@ -174,7 +174,7 @@ TEST(TestZlib, ConsumeBigByteBigBit)
 
 	BitConsumer<std::endian::big> consumer(input1);
 
-	uint16_t result = consumer.consume_bits<uint16_t, std::endian::big>(2);
+	std::uint16_t result = consumer.consume_bits<uint16_t, std::endian::big>(2);
 	EXPECT_EQ(result, 0b1);
 
 	result = consumer.consume_bits<uint16_t, std::endian::big>(4);

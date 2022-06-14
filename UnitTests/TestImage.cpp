@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../LearningOpenGL/Image.h"
+#include "../LearningOpenGL/Image.hpp"
 
 using namespace trv;
 

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Shader.h"
-#include "Image.h"
+#include "Shader.hpp"
+#include "Image.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -53,7 +53,7 @@ int main()
 		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // BL
 		-1.0f,  1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // UL
 	};
-	
+
 	const GLuint indices[] =
 	{
 		0, 1, 3, // first triangle
@@ -85,7 +85,7 @@ int main()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	auto start = std::chrono::system_clock::now();
-	trv::Image<char> image = trv::load_image<char>(R"(C:\Users\monke\Pictures\big_test.png)");
+	trv::Image<char> image = trv::load_image<char>(R"(C:\Users\monke\Pictures\bit_depth_1.png)");
 	auto end = std::chrono::system_clock::now();
 
 	std::chrono::duration<double, std::milli> elapsed = end - start;
@@ -94,7 +94,7 @@ int main()
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	
+
 	GLint format;
 	switch (image.channels)
 	{
@@ -115,7 +115,7 @@ int main()
 		std::cout << "Unexpected channel count, should be <= 4, but was " << image.channels;
 		break;
 	}
-	
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.width, image.height, 0, format, GL_UNSIGNED_BYTE, image.data.data());
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
